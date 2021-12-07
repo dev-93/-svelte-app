@@ -2,7 +2,7 @@
     import {beforeUpdate} from "svelte";
     import Summary from "./Summary.svelte";
 
-    const PAGE_SIZE = 20;
+    const PAGE_SIZE = 30;
 
     export let page;
 
