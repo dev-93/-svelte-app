@@ -8,7 +8,6 @@
 
 	const hashchange = async() => {
 		const path = window.location.hash.slice(1);
-		console.log(path);
 
 		if(path.startsWith('/item')) {
 			const id = path.slice(6);
