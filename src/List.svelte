@@ -16,11 +16,6 @@
             offset = PAGE_SIZE * (page - 1);
             window.scrollTo(0, 0);
         });
-
-    let user = {
-		firstname: 'Ada',
-		lastname: 'Lovelace'
-	};
 </script>
 
 {#if items}
