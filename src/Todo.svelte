@@ -1,14 +1,16 @@
 <script>
 	import { flip } from 'svelte/animate';
-    import { quintOut } from 'svelte/easing';
-	import { crossfade } from 'svelte/transition';
 
+    export let todos;
     export let todo;
     export let receive;
     export let send;
-    export let remove;
 
     console.log(todo);
+
+    const remove = (todo) => {
+		$todos = $todos.filter(t => t !== todo);
+	};
 </script>
 
 <label

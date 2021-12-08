@@ -2,6 +2,7 @@
 	import Todo from "./Todo.svelte";
 	import { crossfade } from 'svelte/transition';
     import { quintOut } from 'svelte/easing';
+	import { writable } from "svelte/store";
 
 	const [send, receive] = crossfade({
 		fallback(node, params) {
@@ -19,16 +20,16 @@
 		}
 	})
 
-	let todos = [
+	let todos = writable([
 		{ id: 1, done: false, description: 'write some docs', isEdit: false },
 		{ id: 2, done: false, description: 'start writing JSConf talk', isEdit: false },
 		{ id: 3, done: true, description: 'buy some milk', isEdit: false },
 		{ id: 4, done: false, description: 'mow the lawn', isEdit: false },
 		{ id: 5, done: false, description: 'feed the turtle', isEdit: false },
 		{ id: 6, done: false, description: 'fix some bugs', isEdit: false },
-	];
+	]);
 
-	let uid = todos.length + 1;
+	let uid = $todos.length + 1;
 
 	const add = (input) => {
 		const todo = {
@@ -38,12 +39,8 @@
 			isEdit: false
 		};
 
-		todos = [todo, ...todos];
+		$todos = [todo, ...$todos];
 		input.value = '';
-	};
-
-	const remove = (todo) => {
-		todos = todos.filter(t => t !== todo);
 	};
 </script>
 
@@ -57,15 +54,15 @@
 
 	<div class="left">
 		<h2>todo</h2>
-		{#each todos?.filter(t => !t.done) as todo (todo.id)}
-			<Todo {todo} {send} {receive} {remove}/>
+		{#each $todos?.filter(t => !t.done) as todo (todo.id)}
+			<Todo {todos} {todo} {send} {receive}/>
 		{/each}
 	</div>
 
 	<div class="right">
 		<h2>done</h2>
-		{#each todos?.filter(t => t.done) as todo (todo.id)}
-			<Todo {todo} {send} {receive} {remove}/>
+		{#each $todos?.filter(t => t.done) as todo (todo.id)}
+			<Todo {todos} {todo} {send} {receive}/>
 		{/each}
 	</div>
 </div>
