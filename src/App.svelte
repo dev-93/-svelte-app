@@ -32,6 +32,10 @@
 	let uid = $todos.length + 1;
 
 	const add = (input) => {
+		if(input.value === "") {
+			return;
+		}
+
 		const todo = {
 			id: uid++,
 			done: false,

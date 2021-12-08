@@ -6,8 +6,6 @@
     export let receive;
     export let send;
 
-    console.log(todo);
-
     const remove = (todo) => {
 		$todos = $todos.filter(t => t !== todo);
 	};
