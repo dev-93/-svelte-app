@@ -69,7 +69,7 @@
 		out:send="{{key: todo.id}}"
 	>
 		<input type=checkbox on:change="{() => inputChange(todo)}" bind:checked={todo.done}/>
-		{todo.description}
+		<span>{todo.description}</span>
 		<button class="update" on:click="{() => onEdit(todo)}">edit</button>
 		<button class="delete" on:click="{() => remove(todo)}">remove</button>
 	</label>
@@ -96,9 +96,13 @@
 		align-items: center;
 	}
 
-	/* label input {
-		margin-left: 20px;
-	} */
+	label input {
+		margin: 0;
+	}
+
+	label span {
+		margin-left:10px;
+	}
 
     button.update {
 		margin-left: auto;
