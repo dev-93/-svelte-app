@@ -1,32 +1,14 @@
 <script>
 	import Todo from "./Todo.svelte";
-	import { crossfade } from 'svelte/transition';
-    import { quintOut } from 'svelte/easing';
 	import { writable } from "svelte/store";
 
-	const [send, receive] = crossfade({
-		fallback(node, params) {
-			const style = getComputedStyle(node);
-			const transform = style.transform === "none" ? "" : style.transform;
-
-			return {
-				duration: 600,
-				easing: quintOut,
-				css: t => `
-					transform: ${transform} scale(${t});
-					opacity: ${t}
-				`
-			};
-		}
-	})
-
 	let todos = writable([
-		{ id: 1, done: false, description: 'write some docs', isEdit: false },
-		{ id: 2, done: false, description: 'start writing JSConf talk', isEdit: false },
-		{ id: 3, done: true, description: 'buy some milk', isEdit: false },
-		{ id: 4, done: false, description: 'mow the lawn', isEdit: false },
-		{ id: 5, done: false, description: 'feed the turtle', isEdit: false },
-		{ id: 6, done: false, description: 'fix some bugs', isEdit: false },
+		{ id: 1, done: false, description: 'write some docs'},
+		{ id: 2, done: false, description: 'start writing JSConf talk'},
+		{ id: 3, done: true, description: 'buy some milk'},
+		{ id: 4, done: false, description: 'mow the lawn'},
+		{ id: 5, done: false, description: 'feed the turtle'},
+		{ id: 6, done: false, description: 'fix some bugs'},
 	]);
 
 	let uid = $todos.length + 1;
@@ -40,7 +22,6 @@
 			id: uid++,
 			done: false,
 			description: input.value,
-			isEdit: false
 		};
 
 		$todos = [todo, ...$todos];
@@ -59,14 +40,14 @@
 	<div class="left">
 		<h2>todo</h2>
 		{#each $todos?.filter(t => !t.done) as todo (todo.id)}
-			<Todo {todos} {todo} {send} {receive}/>
+			<Todo {todos} {todo} />
 		{/each}
 	</div>
 
 	<div class="right">
 		<h2>done</h2>
 		{#each $todos?.filter(t => t.done) as todo (todo.id)}
-			<Todo {todos} {todo} {send} {receive}/>
+			<Todo {todos} {todo} />
 		{/each}
 	</div>
 </div>

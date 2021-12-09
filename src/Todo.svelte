@@ -1,10 +1,27 @@
 <script>
 	import { flip } from 'svelte/animate';
+	import { crossfade } from 'svelte/transition';
+    import { quintOut } from 'svelte/easing';
 
     export let todos;
     export let todo;
-    export let receive;
-    export let send;
+
+	const [send, receive] = crossfade({
+		fallback(node, params) {
+			const style = getComputedStyle(node);
+			const transform = style.transform === "none" ? "" : style.transform;
+
+			return {
+				duration: 600,
+				easing: quintOut,
+				css: t => `
+					transform: ${transform} scale(${t});
+					opacity: ${t}
+				`
+			};
+		}
+	})
+
 
 	let isEdit = false;
 	let description = '';
@@ -25,6 +42,15 @@
     const remove = (todo) => {
 		$todos = $todos.filter(t => t !== todo);
 	};
+
+	const inputChange = (todo) => {
+		todos.set(
+			$todos.map(t => t.id === todo.id ? {
+				...t,
+				done: !t.done
+			} : t)
+		);
+	}
 </script>
 
 {#if isEdit}
@@ -42,7 +68,7 @@
 		in:receive="{{key: todo.id}}"
 		out:send="{{key: todo.id}}"
 	>
-		<input type="checkbox" bind:checked={todo.done}/>
+		<input type=checkbox on:change="{() => inputChange(todo)}" bind:checked={todo.done}/>
 		{todo.description}
 		<button class="update" on:click="{() => onEdit(todo)}">edit</button>
 		<button class="delete" on:click="{() => remove(todo)}">remove</button>
