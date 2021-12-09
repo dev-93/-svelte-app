@@ -29,7 +29,6 @@
 	};
 </script>
 
-
 <div class="board">
 	<input 
 		class="new-todo"
@@ -52,7 +51,7 @@
 	</div>
 </div>
 
-<style global>
+<style>
 	.new-todo {
 		font-size: 1.4em;
 		width: 100%;
