@@ -22,9 +22,8 @@
 		}
 	})
 
-
 	let isEdit = false;
-	let description = '';
+	let description = todo.description;
 
     const onEdit = () => {
         isEdit = true;
@@ -54,7 +53,11 @@
 </script>
 
 {#if isEdit}
-	<div class="edit_container">
+	<div 
+		class="edit_container"
+		in:receive="{{key: todo.id}}"
+		out:send="{{key: todo.id}}"
+	>
 		<input 
 			type="text"
 			bind:value={description}
