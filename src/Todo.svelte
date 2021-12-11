@@ -24,6 +24,9 @@
 
 	let isEdit = false;
 	let description = todo.description;
+	let done = todo.done;
+
+	console.log(done);
 
     const onEdit = () => {
         isEdit = true;
@@ -67,15 +70,28 @@
 		<button on:click="{offEdit}">Cancel</button>
 	</div>
 {:else}
-	<label
-		in:receive="{{key: todo.id}}"
-		out:send="{{key: todo.id}}"
-	>
-		<input type=checkbox on:change="{() => inputChange(todo)}" bind:checked={todo.done}/>
-		<span>{todo.description}</span>
-		<button class="update" on:click="{() => onEdit(todo)}">edit</button>
-		<button class="delete" on:click="{() => remove(todo)}">remove</button>
-	</label>
+	{#if done}
+		<label
+			in:receive="{{key: todo.id}}"
+			out:send="{{key: todo.id}}"
+			class="done"
+		>
+			<input type=checkbox on:change="{() => inputChange(todo)}" bind:checked={todo.done}/>
+			<span>{todo.description}</span>
+			<button class="update" on:click="{() => onEdit(todo)}">edit</button>
+			<button class="delete" on:click="{() => remove(todo)}">remove</button>
+		</label>
+		{:else}
+		<label
+			in:receive="{{key: todo.id}}"
+			out:send="{{key: todo.id}}"
+		>
+			<input type=checkbox on:change="{() => inputChange(todo)}" bind:checked={todo.done}/>
+			<span>{todo.description}</span>
+			<button class="update" on:click="{() => onEdit(todo)}">edit</button>
+			<button class="delete" on:click="{() => remove(todo)}">remove</button>
+		</label>
+	{/if}
 {/if}
 
 <style>
@@ -97,6 +113,10 @@
 		background-color: #eee;
 		user-select: none;
 		align-items: center;
+	}
+
+	label.done {
+		background-color: rgb(180,240,100);
 	}
 
 	label input {
