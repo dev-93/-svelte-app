@@ -46,7 +46,7 @@
 	<div class="right">
 		<h2>done</h2>
 		{#each $todos?.filter(t => t.done) as todo (todo.id)}
-			<Todo {todos} {todo} />
+			<Todo {todos} {todo} class="done"/>
 		{/each}
 	</div>
 </div>

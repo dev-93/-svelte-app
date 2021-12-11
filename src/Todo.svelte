@@ -24,9 +24,7 @@
 
 	let isEdit = false;
 	let description = todo.description;
-	let done = todo.done;
-
-	console.log(done);
+	// let done = todo.done;
 
     const onEdit = () => {
         isEdit = true;
@@ -70,28 +68,16 @@
 		<button on:click="{offEdit}">Cancel</button>
 	</div>
 {:else}
-	{#if done}
-		<label
-			in:receive="{{key: todo.id}}"
-			out:send="{{key: todo.id}}"
-			class="done"
-		>
-			<input type=checkbox on:change="{() => inputChange(todo)}" bind:checked={todo.done}/>
-			<span>{todo.description}</span>
-			<button class="update" on:click="{() => onEdit(todo)}">edit</button>
-			<button class="delete" on:click="{() => remove(todo)}">remove</button>
-		</label>
-		{:else}
-		<label
-			in:receive="{{key: todo.id}}"
-			out:send="{{key: todo.id}}"
-		>
-			<input type=checkbox on:change="{() => inputChange(todo)}" bind:checked={todo.done}/>
-			<span>{todo.description}</span>
-			<button class="update" on:click="{() => onEdit(todo)}">edit</button>
-			<button class="delete" on:click="{() => remove(todo)}">remove</button>
-		</label>
-	{/if}
+	<label
+		in:receive="{{key: todo.id}}"
+		out:send="{{key: todo.id}}"
+		class={$$props.class}
+	>
+		<input type=checkbox on:change="{() => inputChange(todo)}" bind:checked={todo.done}/>
+		<span>{todo.description}</span>
+		<button class="update" on:click="{() => onEdit(todo)}">edit</button>
+		<button class="delete" on:click="{() => remove(todo)}">remove</button>
+	</label>
 {/if}
 
 <style>
@@ -135,7 +121,6 @@
 		width: 2em;
 		height: 100%;
 		border: none;
-		/* opacity: 0; */
 		transition: opacity 0.2s;
 		cursor: pointer;
 		right: 0.2em;
