@@ -24,7 +24,6 @@
 
 	let isEdit = false;
 	let description = todo.description;
-	// let done = todo.done;
 
     const onEdit = () => {
         isEdit = true;
