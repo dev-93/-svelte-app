@@ -1,19 +1,10 @@
 <script>
 	import Todo from "./Todo.svelte";
-	import { writable } from "svelte/store";
 	import { afterUpdate } from 'svelte';
 	import RedThing from './RedThing.svelte';
 	import GreenThing from './GreenThing.svelte';
 	import BlueThing from './BlueThing.svelte';
-
-	let todos = writable([
-		{ id: 1, done: false, description: 'write some docs'},
-		{ id: 2, done: false, description: 'start writing JSConf talk'},
-		{ id: 3, done: true, description: 'buy some milk'},
-		{ id: 4, done: false, description: 'mow the lawn'},
-		{ id: 5, done: false, description: 'feed the turtle'},
-		{ id: 6, done: false, description: 'fix some bugs'},
-	]);
+	import {todos} from "./store";
 
 	let uid = $todos.length + 1;
 
@@ -56,8 +47,8 @@
 		{/each}
 	</select>
 
-	<svelte:component this={selected.component}/>     
-	
+	<svelte:component this={selected.component}/>
+
 	<div class="board">
 		<input 
 			class="new-todo"
