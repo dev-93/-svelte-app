@@ -1,9 +1,6 @@
 <script>
 	import Todo from "./Todo.svelte";
 	import { afterUpdate } from 'svelte';
-	import RedThing from './RedThing.svelte';
-	import GreenThing from './GreenThing.svelte';
-	import BlueThing from './BlueThing.svelte';
 	import {todos} from "./store";
 
 	let uid = $todos.length + 1;
@@ -30,25 +27,9 @@
 		todoCount = $todos?.filter(t => !t.done).length;
 		doneCount = $todos?.filter(t => t.done).length;
 	});
-
-	const options = [
-		{ color: 'red',   component: RedThing   },
-		{ color: 'green', component: GreenThing },
-		{ color: 'blue',  component: BlueThing  },
-	];
-
-	let selected = options[0];
 </script>
 
 <div class="wrapper">
-	<select bind:value={selected}>
-		{#each options as option}
-			<option value={option}>{option.color}</option>
-		{/each}
-	</select>
-
-	<svelte:component this={selected.component}/>
-
 	<div class="board">
 		<input 
 			class="new-todo"
