@@ -59,36 +59,39 @@
 	</div>
 </div>
 
-<style>
-	.new-todo {
-		font-size: 1.4em;
-		width: 100%;
-		margin: 2em 0 1em 0;
-	}
+<style lang="scss">
 
-	.board {
-		max-width: 36em;
-		margin: 0 auto;
-	}
+	.wrapper {
+		.board {
+			max-width: 36em;
+			margin: 0 auto;
 
-	.left, .right {
-		float: left;
-		width: 50%;
-		padding: 0 1em 0 0;
-		box-sizing: border-box;
-	}
+			> input { margin: 0 }
 
-	.title {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
+			.new-todo {
+				font-size: 1.4em;
+				width: 100%;
+				margin: 2em 0 1em 0;
+			}
 
-	h2 {
-		font-size: 2em;
-		font-weight: 200;
-		user-select: none;
-	}
+			.left, .right {
+				float: left;
+				width: 50%;
+				padding: 0 1em 0 0;
+				box-sizing: border-box;
 
-	input { margin: 0 }
+				.title {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+				}
+
+				h2 {
+					font-size: 2em;
+					font-weight: 200;
+					user-select: none;
+				}
+			}
+		}
+	}
 </style>
