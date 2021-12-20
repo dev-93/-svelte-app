@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Todo from "./Todo.svelte";
 	import { afterUpdate } from 'svelte';
 	import {todos} from "./store";
